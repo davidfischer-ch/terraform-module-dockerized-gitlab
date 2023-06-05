@@ -1,4 +1,4 @@
-# GitLab Terraform Module
+# GitLab Terraform Module (Dockerized)
 
 Inspired by:
 
