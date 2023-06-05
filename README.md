@@ -1,6 +1,8 @@
 # GitLab Terraform Module (Dockerized)
 
-Inspired by:
+Manage GitLab server.
 
-- https://docs.gitlab.com/ee/install/docker.html#install-gitlab-using-docker-compose
+## References
+
 - https://hub.docker.com/r/gitlab/gitlab-ee/tags
+- https://docs.gitlab.com/ee/install/docker.html#install-gitlab-using-docker-compose
