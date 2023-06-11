@@ -37,20 +37,23 @@ variable "log_level" {
   }
 }
 
+# Networking
+
+variable "network_id" {
+  type = string
+}
+
 variable "https_port" {
   type    = number
   default = 443
-  # TODO ensure > 1024
 }
 
 variable "http_port" {
   type    = number
   default = 80
-  # TODO ensure > 1024
 }
 
 variable "ssh_port" {
   type    = number
   default = 22
-  # TODO ensure > 1024
 }

@@ -14,7 +14,11 @@ resource "docker_container" "server" {
 
   shm_size = 256 # MB
 
-  hostname = var.gitlab_domain
+  hostname = var.identifier
+
+  networks_advanced {
+    name = var.network_id
+  }
 
   env = [
     "GITLAB_LOG_LEVEL=${var.log_level}",
