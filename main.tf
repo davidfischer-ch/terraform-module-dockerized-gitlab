@@ -50,19 +50,19 @@ resource "docker_container" "server" {
 
   volumes {
     container_path = "/etc/gitlab"
-    host_path      = "${var.data_directory}/${var.identifier}/config"
+    host_path      = "${var.data_directory}/config"
     read_only      = false
   }
 
   volumes {
     container_path = "/var/log/gitlab"
-    host_path      = "${var.data_directory}/${var.identifier}/logs"
+    host_path      = "${var.data_directory}/logs"
     read_only      = false
   }
 
   volumes {
     container_path = "/var/opt/gitlab"
-    host_path      = "${var.data_directory}/${var.identifier}/data"
+    host_path      = "${var.data_directory}/data"
     read_only      = false
   }
 }
