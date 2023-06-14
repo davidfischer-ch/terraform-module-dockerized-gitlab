@@ -33,7 +33,7 @@ variable "log_level" {
 
   validation {
     condition     = contains(["debug", "info", "warn", "error", "fatal", "unknown"], var.log_level)
-    error_message = "Wrong log level"
+    error_message = "Log level should be one of `debug`, `info`, `warn`, `error`, `fatal`, `unknown`"
   }
 }
 
