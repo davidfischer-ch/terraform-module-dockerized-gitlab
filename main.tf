@@ -1,5 +1,6 @@
 resource "docker_image" "server" {
-  name = "gitlab/gitlab-ee:${var.image_tag}"
+  name         = "gitlab/gitlab-ee:${var.image_tag}"
+  keep_locally = true # Prevent conflicts if other modules are using the image we are destroying
 }
 
 resource "docker_container" "server" {
