@@ -1,7 +1,8 @@
 locals {
-  config = [
+  config = concat([
     # Add any other gitlab.rb configuration here, each on its own line
     "external_url 'https://${var.gitlab_domain}'",
+    "gitlab_rails['time_zone'] = '${var.timezone}'",
 
     "gitlab_rails['gitlab_shell_ssh_port'] = ${var.ssh_port}",
     "gitlab_shell['log_level'] = '${upper(var.log_level)}'",
@@ -21,5 +22,5 @@ locals {
     "gitlab_kas['log_level'] = '${var.log_level}'",
     "patroni['log_level'] = '${upper(var.log_level)}'",
     "spamcheck['log_level'] = '${var.log_level}'"
-  ]
+  ], var.extra_config)
 }

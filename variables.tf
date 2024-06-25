@@ -1,6 +1,7 @@
 variable "identifier" {
-  type        = string
   description = "Identifier (must be unique, used to name resources)."
+  type        = string
+
   validation {
     condition     = regex("^[a-z]+(-[a-z0-9]+)*$", var.identifier) != null
     error_message = "Argument `identifier` must match regex ^[a-z]+(-[a-z0-9]+)*$."
@@ -8,39 +9,45 @@ variable "identifier" {
 }
 
 variable "enabled" {
-  type        = bool
   description = "Toggle the containers (started or stopped)."
+  type        = bool
 }
 
 variable "image_tag" {
-  type        = string
   description = "GitLab Server image's tag."
+  type        = string
 }
 
 variable "data_directory" {
-  type        = string
   description = "Where data will be persisted (volumes will be mounted as sub-directories)."
+  type        = string
 }
 
 variable "gitlab_domain" {
-  type        = string
   description = "Main domain e.g \"gitlab.fisch3r.net\"."
+  type        = string
 }
 
 variable "pages_domain" {
-  type        = string
   description = "Pages domain e.g \"pages.fisch3r.net\"."
+  type        = string
 }
 
 variable "registry_domain" {
-  type        = string
   description = "Container registry domain e.g \"registry.fisch3r.net\"."
+  type        = string
+}
+
+variable "timezone" {
+  description = "The timezone."
+  default     = "UTC"
+  type        = string
 }
 
 variable "log_level" {
+  description = "See https://docs.gitlab.com/ee/administration/logs/"
   type        = string
   default     = "warn"
-  description = "See https://docs.gitlab.com/ee/administration/logs/"
 
   validation {
     condition     = contains(["debug", "info", "warn", "error", "fatal", "unknown"], var.log_level)
@@ -48,27 +55,33 @@ variable "log_level" {
   }
 }
 
+variable "extra_config" {
+  description = "Any extra configuration (not managed by the module."
+  type        = list(string)
+  default     = []
+}
+
 # Networking
 
 variable "network_id" {
-  type        = string
   description = "Attach the containers to given network."
+  type        = string
 }
 
 variable "https_port" {
+  description = "Bind the GitLab server's HTTPS port."
   type        = number
   default     = 443
-  description = "Bind the GitLab server's HTTPS port."
 }
 
 variable "http_port" {
+  description = "Bind the GitLab server's HTTP port."
   type        = number
   default     = 80
-  description = "Bind the GitLab server's HTTP port."
 }
 
 variable "ssh_port" {
+  description = "Bind the GitLab server's SSH port."
   type        = number
   default     = 22
-  description = "Bind the GitLab server's SSH port."
 }
