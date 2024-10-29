@@ -56,7 +56,13 @@ variable "log_level" {
 }
 
 variable "extra_config" {
-  description = "Any extra configuration (not managed by the module."
+  description = "Any extra configuration (not managed by the module)."
+  type        = list(string)
+  default     = []
+}
+
+variable "extra_env" {
+  description = "Any extra environment variables (not managed by the module)"
   type        = list(string)
   default     = []
 }

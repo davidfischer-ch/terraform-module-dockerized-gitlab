@@ -21,10 +21,10 @@ resource "docker_container" "server" {
     name = var.network_id
   }
 
-  env = [
+  env = concat([
     "GITLAB_LOG_LEVEL=${var.log_level}",
     "GITLAB_OMNIBUS_CONFIG=${join("\n", local.config)}"
-  ]
+  ], var.extra_env)
 
   ports {
     internal = "22"
