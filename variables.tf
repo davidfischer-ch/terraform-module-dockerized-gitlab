@@ -62,9 +62,15 @@ variable "extra_config" {
 }
 
 variable "extra_env" {
-  description = "Any extra environment variables (not managed by the module)"
+  description = "Any extra environment variables (not managed by the module)."
   type        = list(string)
   default     = []
+}
+
+variable "extra_hosts" {
+  type        = map(string)
+  default     = {}
+  description = "Any extra hosts (not managed by the module)."
 }
 
 # Networking

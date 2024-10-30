@@ -26,6 +26,14 @@ resource "docker_container" "server" {
     "GITLAB_OMNIBUS_CONFIG=${join("\n", local.config)}"
   ], var.extra_env)
 
+  dynamic "host" {
+    for_each = var.extra_hosts
+    content {
+      host = host.key
+      ip   = host.value
+    }
+  }
+
   ports {
     internal = "22"
     external = var.ssh_port
