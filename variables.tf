@@ -67,13 +67,13 @@ variable "extra_env" {
   default     = []
 }
 
-variable "extra_hosts" {
+# Networking ---------------------------------------------------------------------------------------
+
+variable "hosts" {
   type        = map(string)
   default     = {}
-  description = "Any extra hosts (not managed by the module)."
+  description = "Add entries to container hosts file."
 }
-
-# Networking
 
 variable "network_id" {
   description = "Attach the containers to given network."
