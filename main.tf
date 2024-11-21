@@ -57,18 +57,21 @@ resource "docker_container" "server" {
     protocol = "tcp"
   }
 
+  # Config owner root:root
   volumes {
     container_path = "/etc/gitlab"
     host_path      = "${var.data_directory}/config"
     read_only      = false
   }
 
+  # Logs owner root:root
   volumes {
     container_path = "/var/log/gitlab"
     host_path      = "${var.data_directory}/logs"
     read_only      = false
   }
 
+  # Logs owner root:root
   volumes {
     container_path = "/var/opt/gitlab"
     host_path      = "${var.data_directory}/data"
