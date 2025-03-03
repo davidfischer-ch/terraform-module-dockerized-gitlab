@@ -7,6 +7,9 @@ locals {
     "gitlab_rails['gitlab_shell_ssh_port'] = ${var.ssh_port}",
     "gitlab_shell['log_level'] = '${upper(var.log_level)}'",
 
+    # https://docs.gitlab.com/administration/pages/#access-control
+    "gitlab_pages['access_control'] = true",
+
     # https://gitlab.fisch3r.net/help/administration/pages/index.md
     "pages_external_url 'http://${var.pages_domain}'",
     "pages_nginx['enabled'] = true",
