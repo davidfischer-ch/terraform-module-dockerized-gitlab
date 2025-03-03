@@ -34,6 +34,8 @@ resource "docker_container" "server" {
     name = var.network_id
   }
 
+  network_mode = "bridge"
+
   ports {
     internal = "22"
     external = var.ssh_port
