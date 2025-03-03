@@ -11,12 +11,20 @@ locals {
     "gitlab_pages['enabled'] = true",
     "gitlab_pages['access_control'] = true",
 
+    #"gitlab_pages['namespace_in_path'] = true",
+
+    # https://docs.gitlab.com/administration/pages/#using-pages-with-reduced-authentication-scope
+    "gitlab_pages['auth_scope'] = 'read_api'",
+
+    # https://docs.gitlab.com/administration/pages/#custom-domains-with-tls-support
+    "gitlab_pages['redirect_http'] = true",
+
     # https://gitlab.fisch3r.net/help/administration/pages/index.md
     "pages_external_url 'https://${var.pages_domain}'",
     "pages_nginx['enabled'] = true",
     "pages_nginx['listen_port'] = 80",
     "pages_nginx['listen_https'] = false",
-    "pages_nginx['redirect_http_to_https'] = false",
+    "pages_nginx['redirect_http_to_https'] = true",
 
     "registry_external_url 'https://${var.registry_domain}'",
     "registry['enable'] = true",
