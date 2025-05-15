@@ -10,6 +10,7 @@ locals {
     # https://docs.gitlab.com/administration/pages/#access-control
     "gitlab_pages['enabled'] = true",
     "gitlab_pages['access_control'] = true",
+    "gitlab_pages['namespace_in_path'] = true",
 
     #"gitlab_pages['namespace_in_path'] = true",
 
