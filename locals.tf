@@ -12,8 +12,6 @@ locals {
     "gitlab_pages['access_control'] = true",
     "gitlab_pages['namespace_in_path'] = true",
 
-    #"gitlab_pages['namespace_in_path'] = true",
-
     # https://docs.gitlab.com/administration/pages/#using-pages-with-reduced-authentication-scope
     "gitlab_pages['auth_scope'] = 'read_api'",
 
