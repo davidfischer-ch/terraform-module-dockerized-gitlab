@@ -12,7 +12,7 @@ Manage GitLab EE server.
 
 ```hcl
 module "gitlab" {
-  source = "git::https://github.com/davidfischer-ch/terraform-module-dockerized-gitlab.git?ref=1.0.0"
+  source = "git::https://github.com/davidfischer-ch/terraform-module-dockerized-gitlab.git?ref=1.0.2"
 
   identifier     = "gitlab"
   enabled        = true
@@ -28,7 +28,7 @@ module "gitlab" {
 
   # Networking
 
-  hosts      = module.fisch3r_net.lan_hosts
+  hosts      = { "myserver" = "10.0.0.1" }
   network_id = docker_network.gitlab.id
   https_port = 443
   http_port  = 80
