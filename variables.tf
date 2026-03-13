@@ -14,58 +14,11 @@ variable "enabled" {
   default     = true
 }
 
+# Process ------------------------------------------------------------------------------------------
+
 variable "image_tag" {
   type        = string
   description = "GitLab Server image's tag."
-}
-
-variable "data_directory" {
-  type        = string
-  description = "Where data will be persisted (volumes will be mounted as sub-directories)."
-}
-
-variable "gitlab_domain" {
-  type        = string
-  description = "Main domain e.g \"gitlab.fisch3r.net\"."
-}
-
-variable "pages_domain" {
-  type        = string
-  description = "Pages domain e.g \"pages.fisch3r.net\"."
-}
-
-variable "registry_domain" {
-  type        = string
-  description = "Container registry domain e.g \"registry.fisch3r.net\"."
-}
-
-variable "timezone" {
-  type        = string
-  description = "The timezone."
-  default     = "UTC"
-}
-
-variable "log_level" {
-  type        = string
-  description = "See https://docs.gitlab.com/ee/administration/logs/"
-  default     = "warn"
-
-  validation {
-    condition     = contains(["debug", "info", "warn", "error", "fatal", "unknown"], var.log_level)
-    error_message = "Log level should be one of `debug`, `info`, `warn`, `error`, `fatal`, `unknown`"
-  }
-}
-
-variable "extra_config" {
-  type        = list(string)
-  description = "Any extra configuration (not managed by the module)."
-  default     = []
-}
-
-variable "extra_env" {
-  type        = list(string)
-  description = "Any extra environment variables (not managed by the module)."
-  default     = []
 }
 
 # Networking ---------------------------------------------------------------------------------------
@@ -112,4 +65,57 @@ variable "ssh_port" {
     condition     = var.ssh_port >= 1 && var.ssh_port <= 65535
     error_message = "Argument `ssh_port` must be between 1 and 65535."
   }
+}
+
+# Storage ------------------------------------------------------------------------------------------
+
+variable "data_directory" {
+  type        = string
+  description = "Where data will be persisted (volumes will be mounted as sub-directories)."
+}
+
+# Application --------------------------------------------------------------------------------------
+
+variable "gitlab_domain" {
+  type        = string
+  description = "Main domain e.g \"gitlab.fisch3r.net\"."
+}
+
+variable "pages_domain" {
+  type        = string
+  description = "Pages domain e.g \"pages.fisch3r.net\"."
+}
+
+variable "registry_domain" {
+  type        = string
+  description = "Container registry domain e.g \"registry.fisch3r.net\"."
+}
+
+variable "timezone" {
+  type        = string
+  description = "The timezone."
+  default     = "UTC"
+}
+
+variable "log_level" {
+  type        = string
+  description = "See https://docs.gitlab.com/ee/administration/logs/"
+  default     = "warn"
+
+  validation {
+    condition     = contains(["debug", "info", "warn", "error", "fatal", "unknown"], var.log_level)
+    error_message = "Log level should be one of `debug`, `info`, `warn`, `error`, `fatal`, `unknown`"
+  }
+}
+
+variable "extra_config" {
+  type        = list(string)
+  description = "Any extra configuration (not managed by the module)."
+  default     = []
+}
+
+variable "extra_env" {
+  type        = list(string)
+  description = "Any extra environment variables (not managed by the module)."
+  default     = []
 }

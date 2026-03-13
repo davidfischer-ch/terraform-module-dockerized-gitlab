@@ -16,20 +16,28 @@ See [examples/default](examples/default) for a complete working configuration.
 module "gitlab" {
   source = "git::https://github.com/davidfischer-ch/terraform-module-dockerized-gitlab.git?ref=1.0.3"
 
-  identifier     = "gitlab"
-  image_tag      = "17.8.3-ee.0"
+  identifier = "gitlab"
+
+  # Process
+
+  image_tag = "17.8.3-ee.0"
+
+  # Networking
+
+  hosts      = { "myserver" = "10.0.0.1" }
+  network_id = docker_network.gitlab.id
+
+  # Storage
+
   data_directory = "/data/gitlab"
+
+  # Application
 
   gitlab_domain   = "gitlab.example.com"
   pages_domain    = "pages.example.com"
   registry_domain = "registry.example.com"
 
   timezone = "Europe/Zurich"
-
-  # Networking
-
-  hosts      = { "myserver" = "10.0.0.1" }
-  network_id = docker_network.gitlab.id
 }
 ```
 
@@ -51,6 +59,11 @@ data_directory/
 | `identifier` | `string` | — | Unique name for resources (must match `^[a-z]+(-[a-z0-9]+)*$`). |
 | `enabled` | `bool` | `true` | Start or stop the container. |
 | `image_tag` | `string` | — | [GitLab EE](https://hub.docker.com/r/gitlab/gitlab-ee/tags) Docker image tag. |
+| `hosts` | `map(string)` | `{}` | Extra `/etc/hosts` entries for the container. |
+| `network_id` | `string` | — | Docker network to attach to. |
+| `https_port` | `number` | `443` | HTTPS bind port. |
+| `http_port` | `number` | `80` | HTTP bind port. |
+| `ssh_port` | `number` | `22` | SSH bind port. |
 | `data_directory` | `string` | — | Host path for persistent volumes. |
 | `gitlab_domain` | `string` | — | Main GitLab domain. |
 | `pages_domain` | `string` | — | GitLab Pages domain. |
@@ -59,11 +72,6 @@ data_directory/
 | `log_level` | `string` | `"warn"` | Log level (`debug`, `info`, `warn`, `error`, `fatal`, `unknown`). |
 | `extra_config` | `list(string)` | `[]` | Additional `gitlab.rb` configuration directives. |
 | `extra_env` | `list(string)` | `[]` | Additional environment variables. |
-| `hosts` | `map(string)` | `{}` | Extra `/etc/hosts` entries for the container. |
-| `network_id` | `string` | — | Docker network to attach to. |
-| `https_port` | `number` | `443` | HTTPS bind port. |
-| `http_port` | `number` | `80` | HTTP bind port. |
-| `ssh_port` | `number` | `22` | SSH bind port. |
 
 ## Outputs
 
