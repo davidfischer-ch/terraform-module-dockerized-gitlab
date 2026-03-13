@@ -1,6 +1,6 @@
 variable "identifier" {
-  description = "Identifier (must be unique, used to name resources)."
   type        = string
+  description = "Identifier (must be unique, used to name resources)."
 
   validation {
     condition     = regex("^[a-z]+(-[a-z0-9]+)*$", var.identifier) != null
@@ -9,45 +9,45 @@ variable "identifier" {
 }
 
 variable "enabled" {
-  description = "Toggle the containers (started or stopped)."
   type        = bool
+  description = "Toggle the containers (started or stopped)."
   default     = true
 }
 
 variable "image_tag" {
-  description = "GitLab Server image's tag."
   type        = string
+  description = "GitLab Server image's tag."
 }
 
 variable "data_directory" {
-  description = "Where data will be persisted (volumes will be mounted as sub-directories)."
   type        = string
+  description = "Where data will be persisted (volumes will be mounted as sub-directories)."
 }
 
 variable "gitlab_domain" {
-  description = "Main domain e.g \"gitlab.fisch3r.net\"."
   type        = string
+  description = "Main domain e.g \"gitlab.fisch3r.net\"."
 }
 
 variable "pages_domain" {
-  description = "Pages domain e.g \"pages.fisch3r.net\"."
   type        = string
+  description = "Pages domain e.g \"pages.fisch3r.net\"."
 }
 
 variable "registry_domain" {
-  description = "Container registry domain e.g \"registry.fisch3r.net\"."
   type        = string
+  description = "Container registry domain e.g \"registry.fisch3r.net\"."
 }
 
 variable "timezone" {
+  type        = string
   description = "The timezone."
   default     = "UTC"
-  type        = string
 }
 
 variable "log_level" {
-  description = "See https://docs.gitlab.com/ee/administration/logs/"
   type        = string
+  description = "See https://docs.gitlab.com/ee/administration/logs/"
   default     = "warn"
 
   validation {
@@ -57,14 +57,14 @@ variable "log_level" {
 }
 
 variable "extra_config" {
-  description = "Any extra configuration (not managed by the module)."
   type        = list(string)
+  description = "Any extra configuration (not managed by the module)."
   default     = []
 }
 
 variable "extra_env" {
-  description = "Any extra environment variables (not managed by the module)."
   type        = list(string)
+  description = "Any extra environment variables (not managed by the module)."
   default     = []
 }
 
@@ -72,29 +72,44 @@ variable "extra_env" {
 
 variable "hosts" {
   type        = map(string)
-  default     = {}
   description = "Add entries to container hosts file."
+  default     = {}
 }
 
 variable "network_id" {
-  description = "Attach the containers to given network."
   type        = string
+  description = "Attach the containers to given network."
 }
 
 variable "https_port" {
-  description = "Bind the GitLab server's HTTPS port."
   type        = number
+  description = "Bind the GitLab server's HTTPS port."
   default     = 443
+
+  validation {
+    condition     = var.https_port >= 1 && var.https_port <= 65535
+    error_message = "Argument `https_port` must be between 1 and 65535."
+  }
 }
 
 variable "http_port" {
-  description = "Bind the GitLab server's HTTP port."
   type        = number
+  description = "Bind the GitLab server's HTTP port."
   default     = 80
+
+  validation {
+    condition     = var.http_port >= 1 && var.http_port <= 65535
+    error_message = "Argument `http_port` must be between 1 and 65535."
+  }
 }
 
 variable "ssh_port" {
-  description = "Bind the GitLab server's SSH port."
   type        = number
+  description = "Bind the GitLab server's SSH port."
   default     = 22
+
+  validation {
+    condition     = var.ssh_port >= 1 && var.ssh_port <= 65535
+    error_message = "Argument `ssh_port` must be between 1 and 65535."
+  }
 }
