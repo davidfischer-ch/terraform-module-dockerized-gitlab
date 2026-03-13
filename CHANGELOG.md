@@ -1,5 +1,11 @@
 # Changelog
 
+## Release v1.0.4 (2026-03-14)
+
+### Fix and enhancements
+
+* Reorder variables to be consistent
+
 ## Release v1.0.3 (2026-03-13)
 
 ### Fix and enhancements

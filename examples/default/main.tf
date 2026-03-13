@@ -4,7 +4,7 @@ resource "docker_network" "gitlab" {
 }
 
 module "gitlab" {
-  source = "git::https://github.com/davidfischer-ch/terraform-module-dockerized-gitlab.git?ref=1.0.2"
+  source = "git::https://github.com/davidfischer-ch/terraform-module-dockerized-gitlab.git?ref=1.0.4"
 
   identifier = "gitlab"
 

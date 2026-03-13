@@ -14,7 +14,7 @@ See [examples/default](examples/default) for a complete working configuration.
 
 ```hcl
 module "gitlab" {
-  source = "git::https://github.com/davidfischer-ch/terraform-module-dockerized-gitlab.git?ref=1.0.3"
+  source = "git::https://github.com/davidfischer-ch/terraform-module-dockerized-gitlab.git?ref=1.0.4"
 
   identifier = "gitlab"
 
