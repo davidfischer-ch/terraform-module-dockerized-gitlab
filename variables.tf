@@ -11,6 +11,7 @@ variable "identifier" {
 variable "enabled" {
   description = "Toggle the containers (started or stopped)."
   type        = bool
+  default     = true
 }
 
 variable "image_tag" {

@@ -54,7 +54,7 @@ data_directory/
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | `identifier` | `string` | — | Unique name for resources (must match `^[a-z]+(-[a-z0-9]+)*$`). |
-| `enabled` | `bool` | — | Start or stop the container. |
+| `enabled` | `bool` | `true` | Start or stop the container. |
 | `image_tag` | `string` | — | [GitLab EE](https://hub.docker.com/r/gitlab/gitlab-ee/tags) Docker image tag. |
 | `data_directory` | `string` | — | Host path for persistent volumes. |
 | `gitlab_domain` | `string` | — | Main GitLab domain. |
