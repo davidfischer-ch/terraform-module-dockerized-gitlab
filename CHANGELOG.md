@@ -1,5 +1,14 @@
 # Changelog
 
+## Release v1.0.3 (2026-03-13)
+
+### Fix and enhancements
+
+* Set `enabled` default to `true`
+* Refine variable descriptions, validators, and attribute ordering
+* Add `examples/default/` Terraform example
+* Remove redundant default values from examples and README
+
 ## Release v1.0.2 (2025-05-15)
 
 ### Fix and enhancements
