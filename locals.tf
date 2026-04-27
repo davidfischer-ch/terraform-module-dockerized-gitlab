@@ -34,6 +34,14 @@ locals {
     "patroni['log_level'] = '${upper(var.log_level)}'",
     "spamcheck['log_level'] = '${var.log_level}'"
     ],
-    length(var.trusted_proxies) > 0 ? ["gitlab_rails['trusted_proxies'] = ${jsonencode(var.trusted_proxies)}"] : [],
+    length(var.trusted_proxies) > 0 ? [
+      # Rails trust list (RemoteIp middleware).
+      "gitlab_rails['trusted_proxies'] = ${jsonencode(var.trusted_proxies)}",
+      # Bundled-nginx trust list (real_ip module). Without this, the inner
+      # nginx overwrites X-Forwarded-For and Rails never sees the real client.
+      "nginx['real_ip_header'] = 'X-Forwarded-For'",
+      "nginx['real_ip_recursive'] = 'on'",
+      "nginx['real_ip_trusted_addresses'] = ${jsonencode(var.trusted_proxies)}"
+    ] : [],
   var.extra_config)
 }
