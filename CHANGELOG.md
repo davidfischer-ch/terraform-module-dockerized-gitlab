@@ -1,5 +1,11 @@
 # Changelog
 
+## Release v1.0.5 (2026-04-27)
+
+### Fix and enhancements
+
+* Add `trusted_proxies` variable so the real client IP is preserved when GitLab sits behind a reverse proxy (otherwise Rack::Attack rate-limits the proxy IP and locks out everyone)
+
 ## Release v1.0.4 (2026-03-14)
 
 ### Fix and enhancements
