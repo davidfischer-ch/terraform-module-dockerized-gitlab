@@ -70,6 +70,7 @@ data_directory/
 | `registry_domain` | `string` | — | Container Registry domain. |
 | `timezone` | `string` | `"UTC"` | Timezone. |
 | `log_level` | `string` | `"warn"` | Log level (`debug`, `info`, `warn`, `error`, `fatal`, `unknown`). |
+| `trusted_proxies` | `list(string)` | `[]` | IPs/CIDRs to trust as reverse proxies (preserves real client IP in `X-Forwarded-For` for Rack::Attack and audit logs). |
 | `extra_config` | `list(string)` | `[]` | Additional `gitlab.rb` configuration directives. |
 | `extra_env` | `list(string)` | `[]` | Additional environment variables. |
 

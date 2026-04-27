@@ -108,6 +108,12 @@ variable "log_level" {
   }
 }
 
+variable "trusted_proxies" {
+  type        = list(string)
+  description = "List of IPs/CIDRs to trust as reverse proxies (so the real client IP is preserved in `X-Forwarded-For` for Rack::Attack and audit logs)."
+  default     = []
+}
+
 variable "extra_config" {
   type        = list(string)
   description = "Any extra configuration (not managed by the module)."

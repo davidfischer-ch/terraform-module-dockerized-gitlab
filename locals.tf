@@ -33,5 +33,7 @@ locals {
     "gitlab_kas['log_level'] = '${var.log_level}'",
     "patroni['log_level'] = '${upper(var.log_level)}'",
     "spamcheck['log_level'] = '${var.log_level}'"
-  ], var.extra_config)
+    ],
+    length(var.trusted_proxies) > 0 ? ["gitlab_rails['trusted_proxies'] = ${jsonencode(var.trusted_proxies)}"] : [],
+  var.extra_config)
 }
