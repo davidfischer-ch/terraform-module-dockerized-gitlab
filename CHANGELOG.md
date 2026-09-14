@@ -1,5 +1,18 @@
 # Changelog
 
+## Release v1.1.0 (2026-09-14)
+
+### Minor compatibility breaks
+
+* Bound the container restart policy at five attempts instead of retrying forever
+    * A GitLab that cannot boot now stays down, and visibly down
+    * The unbounded policy looped 565 times over ten hours without reporting a fault
+
+### Fix and enhancements
+
+* Extend `trusted_proxies` to the bundled nginx `real_ip` module
+    * The inner nginx overwrote `X-Forwarded-For` before Rails ever saw it
+
 ## Release v1.0.5 (2026-04-27)
 
 ### Fix and enhancements

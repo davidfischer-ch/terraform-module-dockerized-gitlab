@@ -10,7 +10,15 @@ resource "docker_container" "server" {
 
   must_run = true
   start    = true
-  restart  = "always"
+
+  # Bounded rather than "always". A container that cannot finish its boot fails the same way on
+  # every attempt, and an unlimited policy turns that into an endless loop. Each attempt runs a
+  # full reconfigure, which the host pays for, and nothing reports a fault because the container
+  # is always about to come back.
+  #
+  # Five attempts, then it stays down and is visibly down, which is the more actionable failure.
+  restart         = "on-failure"
+  max_retry_count = 5
   # wait   = true
 
   shm_size = 256 # MB
