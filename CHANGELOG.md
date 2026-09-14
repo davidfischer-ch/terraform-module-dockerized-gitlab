@@ -5,8 +5,8 @@
 ### Minor compatibility breaks
 
 * Bound the container restart policy at five attempts instead of retrying forever
-    * A GitLab that cannot boot now stays down, and visibly down
-    * The unbounded policy looped 565 times over ten hours without reporting a fault
+    * A GitLab that cannot boot now stays down instead of looping
+    * An endless loop hides the fault and pays for a full reconfigure on every attempt
 
 ### Fix and enhancements
 
