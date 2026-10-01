@@ -1,5 +1,17 @@
 # Changelog
 
+## Release v2.0.0 (2026-10-01)
+
+### Compatibility breaks
+
+* Require GitLab 19.2 or later
+    * Bundled nginx settings move to `gitlab_rails['nginx']` and `gitlab_pages['nginx']`
+    * The `nginx[...]` and `pages_nginx[...]` keys they replace are deprecated since 19.2
+
+### Fix and enhancements
+
+* Drop the Spamcheck log level, GitLab 19.0 aborts reconfigure on any Spamcheck setting
+
 ## Release v1.1.0 (2026-09-14)
 
 ### Minor compatibility breaks
