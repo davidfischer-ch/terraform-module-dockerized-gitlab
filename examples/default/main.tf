@@ -10,7 +10,7 @@ module "gitlab" {
 
   # Process
 
-  image_tag = "17.8.3-ee.0"
+  image_tag = "19.2.7-ee.0"
 
   # Networking
 

@@ -8,6 +8,9 @@ Manage GitLab EE server.
 * Built-in support for GitLab Pages, Container Registry, and GeoIP
 * Configuration via `gitlab.rb` directives (Omnibus)
 
+Requires GitLab 19.2 or later, which moved the bundled nginx settings under `gitlab_rails['nginx']`
+and `gitlab_pages['nginx']`.
+
 ## Usage
 
 See [examples/default](examples/default) for a complete working configuration.
@@ -20,7 +23,7 @@ module "gitlab" {
 
   # Process
 
-  image_tag = "17.8.3-ee.0"
+  image_tag = "19.2.7-ee.0"
 
   # Networking
 
