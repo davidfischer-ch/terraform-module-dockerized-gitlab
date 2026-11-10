@@ -4,7 +4,7 @@ locals {
     "external_url 'https://${var.gitlab_domain}'",
     "gitlab_rails['time_zone'] = '${var.timezone}'",
 
-    "gitlab_rails['gitlab_shell_ssh_port'] = ${var.ssh_port}",
+    "gitlab_rails['gitlab_shell_ssh_port'] = ${coalesce(var.ssh_port, 22)}",
     "gitlab_shell['log_level'] = '${upper(var.log_level)}'",
 
     # https://docs.gitlab.com/administration/pages/#access-control

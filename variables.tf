@@ -34,36 +34,54 @@ variable "network_id" {
   description = "Attach the containers to given network."
 }
 
+variable "listener_address" {
+  type        = string
+  description = <<-EOT
+    Address the GitLab server's published ports bind to. `0.0.0.0` offers them to every network the
+    host is on.
+  EOT
+  default     = "127.0.0.1"
+}
+
 variable "https_port" {
   type        = number
-  description = "Bind the GitLab server's HTTPS port."
+  description = "Bind the GitLab server's HTTPS port, or publish none with `null`."
   default     = 443
+  nullable    = true
 
   validation {
-    condition     = var.https_port >= 1 && var.https_port <= 65535
-    error_message = "Argument `https_port` must be between 1 and 65535."
+    condition = (
+      var.https_port == null ? true : var.https_port >= 1 && var.https_port <= 65535
+    )
+    error_message = "Argument `https_port` must be between 1 and 65535, or null."
   }
 }
 
 variable "http_port" {
   type        = number
-  description = "Bind the GitLab server's HTTP port."
+  description = "Bind the GitLab server's HTTP port, or publish none with `null`."
   default     = 80
+  nullable    = true
 
   validation {
-    condition     = var.http_port >= 1 && var.http_port <= 65535
-    error_message = "Argument `http_port` must be between 1 and 65535."
+    condition = (
+      var.http_port == null ? true : var.http_port >= 1 && var.http_port <= 65535
+    )
+    error_message = "Argument `http_port` must be between 1 and 65535, or null."
   }
 }
 
 variable "ssh_port" {
   type        = number
-  description = "Bind the GitLab server's SSH port."
+  description = "Bind the GitLab server's SSH port, or publish none with `null`."
   default     = 22
+  nullable    = true
 
   validation {
-    condition     = var.ssh_port >= 1 && var.ssh_port <= 65535
-    error_message = "Argument `ssh_port` must be between 1 and 65535."
+    condition = (
+      var.ssh_port == null ? true : var.ssh_port >= 1 && var.ssh_port <= 65535
+    )
+    error_message = "Argument `ssh_port` must be between 1 and 65535, or null."
   }
 }
 

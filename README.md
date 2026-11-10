@@ -3,7 +3,7 @@
 Manage GitLab EE server.
 
 * Runs in bridge networking mode
-* Exposes HTTPS, HTTP, and SSH ports
+* Publishes its HTTPS, HTTP and SSH ports on loopback by default, or on the address given, or none
 * Persists config, data, and logs directories
 * Built-in support for GitLab Pages, Container Registry, and GeoIP
 * Configuration via `gitlab.rb` directives (Omnibus)
@@ -64,9 +64,10 @@ data_directory/
 | `image_tag` | `string` | required | [GitLab EE](https://hub.docker.com/r/gitlab/gitlab-ee/tags) Docker image tag. |
 | `hosts` | `map(string)` | `{}` | Extra `/etc/hosts` entries for the container. |
 | `network_id` | `string` | required | Docker network to attach to. |
-| `https_port` | `number` | `443` | HTTPS bind port. |
-| `http_port` | `number` | `80` | HTTP bind port. |
-| `ssh_port` | `number` | `22` | SSH bind port. |
+| `listener_address` | `string` | `"127.0.0.1"` | Address the published ports bind to. |
+| `https_port` | `number` | `443` | HTTPS bind port, `null` for none. |
+| `http_port` | `number` | `80` | HTTP bind port, `null` for none. |
+| `ssh_port` | `number` | `22` | SSH bind port, `null` for none. |
 | `data_directory` | `string` | required | Host path for persistent volumes. |
 | `gitlab_domain` | `string` | required | Main GitLab domain. |
 | `pages_domain` | `string` | required | GitLab Pages domain. |
@@ -81,6 +82,7 @@ data_directory/
 
 | Name | Description |
 |------|-------------|
+| `host` | Container hostname, for containers on its network. |
 | `gitlab_domain` | Main GitLab domain. |
 | `pages_domain` | GitLab Pages domain. |
 | `registry_domain` | Container Registry domain. |

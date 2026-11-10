@@ -44,27 +44,21 @@ resource "docker_container" "server" {
 
   network_mode = "bridge"
 
-  ports {
-    internal = "22"
-    external = var.ssh_port
-    ip       = "0.0.0.0"
-    protocol = "tcp"
-  }
-
-  # For pages
-  ports {
-    internal = "80"
-    external = var.http_port
-    ip       = "0.0.0.0"
-    protocol = "tcp"
-  }
-
-  # For gitlab and registry
-  ports {
-    internal = "443"
-    external = var.https_port
-    ip       = "0.0.0.0"
-    protocol = "tcp"
+  # SSH for git, HTTP for pages, HTTPS for gitlab and registry
+  dynamic "ports" {
+    for_each = [
+      for port in [
+        { internal = 22, external = var.ssh_port },
+        { internal = 80, external = var.http_port },
+        { internal = 443, external = var.https_port },
+      ] : port if port.external != null
+    ]
+    content {
+      internal = ports.value.internal
+      external = ports.value.external
+      ip       = var.listener_address
+      protocol = "tcp"
+    }
   }
 
   # Config owner root:root
