@@ -59,18 +59,18 @@ data_directory/
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `identifier` | `string` | — | Unique name for resources (must match `^[a-z]+(-[a-z0-9]+)*$`). |
+| `identifier` | `string` | required | Unique name for resources (must match `^[a-z]+(-[a-z0-9]+)*$`). |
 | `enabled` | `bool` | `true` | Start or stop the container. |
-| `image_tag` | `string` | — | [GitLab EE](https://hub.docker.com/r/gitlab/gitlab-ee/tags) Docker image tag. |
+| `image_tag` | `string` | required | [GitLab EE](https://hub.docker.com/r/gitlab/gitlab-ee/tags) Docker image tag. |
 | `hosts` | `map(string)` | `{}` | Extra `/etc/hosts` entries for the container. |
-| `network_id` | `string` | — | Docker network to attach to. |
+| `network_id` | `string` | required | Docker network to attach to. |
 | `https_port` | `number` | `443` | HTTPS bind port. |
 | `http_port` | `number` | `80` | HTTP bind port. |
 | `ssh_port` | `number` | `22` | SSH bind port. |
-| `data_directory` | `string` | — | Host path for persistent volumes. |
-| `gitlab_domain` | `string` | — | Main GitLab domain. |
-| `pages_domain` | `string` | — | GitLab Pages domain. |
-| `registry_domain` | `string` | — | Container Registry domain. |
+| `data_directory` | `string` | required | Host path for persistent volumes. |
+| `gitlab_domain` | `string` | required | Main GitLab domain. |
+| `pages_domain` | `string` | required | GitLab Pages domain. |
+| `registry_domain` | `string` | required | Container Registry domain. |
 | `timezone` | `string` | `"UTC"` | Timezone. |
 | `log_level` | `string` | `"warn"` | Log level (`debug`, `info`, `warn`, `error`, `fatal`, `unknown`). |
 | `trusted_proxies` | `list(string)` | `[]` | IPs/CIDRs to trust as reverse proxies (preserves real client IP in `X-Forwarded-For` for Rack::Attack and audit logs). |
