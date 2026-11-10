@@ -1,5 +1,23 @@
 # Changelog
 
+## Release v2.1.0 (2026-11-10)
+
+Diff: https://github.com/davidfischer-ch/terraform-module-dockerized-gitlab/compare/2.0.0...2.1.0
+
+### Minor compatibility breaks
+
+Networking:
+
+* Publish the HTTPS, HTTP and SSH ports on `listener_address`, `127.0.0.1` by default instead of `0.0.0.0`
+    * Set `listener_address = "0.0.0.0"` to keep them reachable from every network
+
+### Features
+
+Networking:
+
+* Allow `https_port`, `http_port` and `ssh_port` to be `null`, to publish no port
+* Add the `host` output, the container's hostname for containers on its network
+
 ## Release v2.0.0 (2026-10-01)
 
 ### Compatibility breaks
