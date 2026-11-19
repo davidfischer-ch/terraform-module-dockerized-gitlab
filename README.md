@@ -53,7 +53,7 @@ All persistent data lives under `data_directory`:
 ```
 data_directory/
 ├── config/  # GitLab Omnibus configuration (/etc/gitlab)
-├── data/    # GitLab application data (/var/opt/gitlab)
+├── data/    # GitLab application data (/var/opt/gitlab), backups/ written by the backup action
 └── logs/    # GitLab log files (/var/log/gitlab)
 ```
 
@@ -110,9 +110,50 @@ terraform test
 ```
 
 `terraform test` needs Terraform >= 1.17, the module's own floor. The tests plan against a mocked
-Docker provider: they assert what the module passes to Docker and its outputs, and run no image.
-They run on every push, in the GitHub workflow (with the newest providers and with their minimums)
-and in the GitLab pipeline.
+Docker provider: they assert what the module passes to Docker and its outputs, and run no image, nor
+any action. They run on every push, in the GitHub workflow (with the newest providers and with their
+minimums) and in the GitLab pipeline.
+
+
+## Actions
+
+On-demand operations on GitLab. Each runs only when invoked, never during an ordinary `apply`, and
+leaves nothing in the state:
+
+```bash
+terraform apply -invoke='module.gitlab.action.docker_exec.<action>'
+```
+
+Replace `module.gitlab` with the module's address.
+
+### Backup
+
+Both work in `{data_directory}/data/backups`.
+
+| Action | What it does | When |
+|--------|--------------|------|
+| `backup` | `gitlab-backup create STRATEGY=copy`: the database, the repositories and the uploads into `<id>_gitlab_backup.tar`; the older archives removed once it is complete, the archive of a failed run removed | Before an upgrade or a risky change, or on a schedule |
+| `restore` | `gitlab-backup restore force=yes` of the newest backup, Puma and Sidekiq stopped meanwhile, GitLab restarted whatever the outcome | To roll the instance back to the last backup |
+
+One archive is kept. The archives hold neither `gitlab.rb` nor `gitlab-secrets.json`: back up
+`{data_directory}/config` too, since a restored instance needs the secrets the backup was written
+with.
+
+After a restore:
+
+1. Invoke `reconfigure`.
+2. Invoke `check`.
+3. Invoke `check_secrets`.
+
+### Maintenance
+
+| Action | What it does | When |
+|--------|--------------|------|
+| `check` | `gitlab-rake gitlab:check SANITIZE=true`: GitLab's consistency checks, the project names left out, failing on a failed check | After an upgrade or a restore |
+| `check_secrets` | `gitlab-rake gitlab:doctor:secrets`: the data GitLab can no longer decrypt with the current `gitlab-secrets.json`, failing on any | After a restore or a host move |
+| `reconfigure` | `gitlab-ctl reconfigure`: `gitlab.rb` applied again, the container kept | After a restore, or after editing `gitlab.rb` by hand |
+| `collect_registry_garbage` | `gitlab-ctl registry-garbage-collect -m`: the registry's untagged manifests deleted, then the layers no manifest references freed; the registry stopped meanwhile, pulls failing as well as pushes | When the registry's storage grows |
+| `clear_cache` | `gitlab-rake cache:clear`: GitLab's cache in Redis emptied | After an upgrade that leaves stale pages |
 
 
 ## References
