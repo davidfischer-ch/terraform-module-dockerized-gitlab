@@ -8,8 +8,8 @@ resource "docker_container" "server" {
   image = docker_image.server.image_id
   name  = var.identifier
 
-  must_run = true
-  start    = true
+  must_run = var.enabled
+  start    = var.enabled
 
   # Bounded rather than "always". A container that cannot finish its boot fails the same way on
   # every attempt, and an unlimited policy turns that into an endless loop. Each attempt runs a

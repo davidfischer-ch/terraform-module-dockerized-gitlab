@@ -101,6 +101,20 @@ data_directory/
 * [kreuzwerker/docker](https://github.com/kreuzwerker/terraform-provider-docker) >= 4.7.0
 * [hashicorp/local](https://github.com/hashicorp/terraform-provider-local) >= 2.4.1
 
+
+## Tests
+
+```bash
+terraform init -backend=false
+terraform test
+```
+
+`terraform test` needs Terraform >= 1.17, the module's own floor. The tests plan against a mocked
+Docker provider: they assert what the module passes to Docker and its outputs, and run no image.
+They run on every push, in the GitHub workflow (with the newest providers and with their minimums)
+and in the GitLab pipeline.
+
+
 ## References
 
 * https://hub.docker.com/r/gitlab/gitlab-ee/tags
