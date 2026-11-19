@@ -1,5 +1,37 @@
 # Changelog
 
+
+## Release v2.1.1 (2026-11-19)
+
+Diff: https://github.com/davidfischer-ch/terraform-module-dockerized-gitlab/compare/2.1.0...2.1.1
+
+### Features
+
+Actions:
+
+* Add `backup` and `restore` actions, through `gitlab-backup` in `{data_directory}/data/backups`, the newest archive kept
+* Add `check`, `check_secrets`, `reconfigure`, `collect_registry_garbage` and `clear_cache` maintenance actions
+
+CI:
+
+* Add CI: formatting, validation and the tests, in the GitHub workflow (with the newest providers and their minimums) and in the GitLab pipeline
+
+### Fix and enhancements
+
+Server:
+
+* Stop GitLab when `enabled` is `false`, which it ignored
+
+Requirements:
+
+* Require Terraform 1.17
+* Require the Docker provider 4.7.0
+
+Docs:
+
+* Point the README and the examples at this release
+
+
 ## Release v2.1.0 (2026-11-10)
 
 Diff: https://github.com/davidfischer-ch/terraform-module-dockerized-gitlab/compare/2.0.0...2.1.0
