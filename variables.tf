@@ -122,13 +122,16 @@ variable "log_level" {
 
   validation {
     condition     = contains(["debug", "info", "warn", "error", "fatal", "unknown"], var.log_level)
-    error_message = "Log level should be one of `debug`, `info`, `warn`, `error`, `fatal`, `unknown`"
+    error_message = "Log level must be one of `debug`, `info`, `warn`, `error`, `fatal`, `unknown`."
   }
 }
 
 variable "trusted_proxies" {
   type        = list(string)
-  description = "List of IPs/CIDRs to trust as reverse proxies (so the real client IP is preserved in `X-Forwarded-For` for Rack::Attack and audit logs)."
+  description = <<-EOT
+    List of IPs/CIDRs to trust as reverse proxies, which preserves the real client IP in
+    `X-Forwarded-For` for Rack::Attack and audit logs.
+  EOT
   default     = []
 }
 

@@ -11,6 +11,7 @@ Manage GitLab EE server.
 Requires GitLab 19.2 or later, which moved the bundled nginx settings under `gitlab_rails['nginx']`
 and `gitlab_pages['nginx']`.
 
+
 ## Usage
 
 See [examples/default](examples/default) for a complete working configuration.
@@ -44,6 +45,7 @@ module "gitlab" {
 }
 ```
 
+
 ## Data layout
 
 All persistent data lives under `data_directory`:
@@ -54,6 +56,7 @@ data_directory/
 ├── data/    # GitLab application data (/var/opt/gitlab)
 └── logs/    # GitLab log files (/var/log/gitlab)
 ```
+
 
 ## Variables
 
@@ -78,6 +81,7 @@ data_directory/
 | `extra_config` | `list(string)` | `[]` | Additional `gitlab.rb` configuration directives. |
 | `extra_env` | `list(string)` | `[]` | Additional environment variables. |
 
+
 ## Outputs
 
 | Name | Description |
@@ -89,6 +93,7 @@ data_directory/
 | `https_port` | HTTPS bind port. |
 | `http_port` | HTTP bind port. |
 | `ssh_port` | SSH bind port. |
+
 
 ## Requirements
 
