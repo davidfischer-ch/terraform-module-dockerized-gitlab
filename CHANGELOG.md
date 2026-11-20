@@ -1,6 +1,21 @@
 # Changelog
 
 
+## Release v2.1.2 (2026-11-20)
+
+Diff: https://github.com/davidfischer-ch/terraform-module-dockerized-gitlab/compare/2.1.1...2.1.2
+
+### Fix and enhancements
+
+Server:
+
+* Replace the GitLab image only once its successor is pulled (`create_before_destroy`): the state keeps the image in use until then
+
+CI:
+
+* Test at both ends of `versions.tf`, every version read from it at run time: the newest Terraform and providers, and their floors
+
+
 ## Release v2.1.1 (2026-11-19)
 
 Diff: https://github.com/davidfischer-ch/terraform-module-dockerized-gitlab/compare/2.1.0...2.1.1
